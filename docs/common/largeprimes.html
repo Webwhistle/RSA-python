@@ -52,7 +52,9 @@ def miller_rabin(w, iterations = 50):
     return &#34;PROBABLY PRIME&#34;
 
 def random_int(length = 1024):
-    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test. &#34;&#34;&#34;
+    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
+        The bit-length of the integer is determined by the input argument,
+        default is 1024 for optimal run time. &#34;&#34;&#34;
     if length &lt; 2:
         return &#34;FAILURE&#34;
     if length &gt; 1024:
@@ -65,14 +67,17 @@ def random_int(length = 1024):
         return False
 
 def big_prime(length = 1024):
-    &#34;&#34;&#34; Generates a large prime (default 1024 bits). &#34;&#34;&#34;
+    &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
+        returned. (default size: 1024 bits). &#34;&#34;&#34;
     while True:
         prime = random_int(length)
         if prime:
             return prime
 
 def prime_pair(length = 1024):
-    &#34;&#34;&#34; Generates two distinct large primes (default 1024 bits). &#34;&#34;&#34;
+    &#34;&#34;&#34; Generates two distinct primes (p,q) using big_prime function.
+        Returns failure if p == q, which should never happen if the bit size is
+        large enough. (default size: 1024 bits). &#34;&#34;&#34;
     p = big_prime(length)
     q = big_prime(length)
     if p != q:
@@ -92,13 +97,15 @@ def prime_pair(length = 1024):
 <span>def <span class="ident">big_prime</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generates a large prime (default 1024 bits).</p></div>
+<div class="desc"><p>Generates a prime by looping the random_int function until a prime is
+returned. (default size: 1024 bits).</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def big_prime(length = 1024):
-    &#34;&#34;&#34; Generates a large prime (default 1024 bits). &#34;&#34;&#34;
+    &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
+        returned. (default size: 1024 bits). &#34;&#34;&#34;
     while True:
         prime = random_int(length)
         if prime:
@@ -146,13 +153,17 @@ primes is less than pow(2,-100) if the prime is less than 2048 bits.</p></div>
 <span>def <span class="ident">prime_pair</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generates two distinct large primes (default 1024 bits).</p></div>
+<div class="desc"><p>Generates two distinct primes (p,q) using big_prime function.
+Returns failure if p == q, which should never happen if the bit size is
+large enough. (default size: 1024 bits).</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def prime_pair(length = 1024):
-    &#34;&#34;&#34; Generates two distinct large primes (default 1024 bits). &#34;&#34;&#34;
+    &#34;&#34;&#34; Generates two distinct primes (p,q) using big_prime function.
+        Returns failure if p == q, which should never happen if the bit size is
+        large enough. (default size: 1024 bits). &#34;&#34;&#34;
     p = big_prime(length)
     q = big_prime(length)
     if p != q:
@@ -165,13 +176,17 @@ primes is less than pow(2,-100) if the prime is less than 2048 bits.</p></div>
 <span>def <span class="ident">random_int</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Runs a randomly bit generated integer through the Miller Rabin test.</p></div>
+<div class="desc"><p>Runs a randomly bit generated integer through the Miller Rabin test.
+The bit-length of the integer is determined by the input argument,
+default is 1024 for optimal run time.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def random_int(length = 1024):
-    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test. &#34;&#34;&#34;
+    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
+        The bit-length of the integer is determined by the input argument,
+        default is 1024 for optimal run time. &#34;&#34;&#34;
     if length &lt; 2:
         return &#34;FAILURE&#34;
     if length &gt; 1024:

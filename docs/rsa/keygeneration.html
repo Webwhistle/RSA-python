@@ -31,13 +31,11 @@ from ..common.largeprimes import prime_pair
 
 class generateKeys:
     &#34;&#34;&#34; Generate a public and a private key for RSA encryption. Default bit
-        security is set to 2048. Generates in approximately 20 seconds.
+        security is set to 2048. Generates in approximately 20 seconds. Standard
+        encryption exponent is 65537.
         &#34;&#34;&#34;
 
     def __init__(self):
-        &#34;&#34;&#34; Initiates an Euler totient function and a semi prime from two distinct primes.
-            Standard encryption exponent is 65537.
-            &#34;&#34;&#34;
         p, q = prime_pair()    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
@@ -51,9 +49,15 @@ class generateKeys:
         return self._n, d
 
     def get_public(self):
+        &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
+            exponent e.
+            &#34;&#34;&#34;
         return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
+        &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
+            encryption exponent d.
+            &#34;&#34;&#34;
         d = self._keygeneration()[1]
         return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)
 
@@ -86,22 +90,19 @@ if __name__ == &#34;__main__&#34;:
 </code></dt>
 <dd>
 <div class="desc"><p>Generate a public and a private key for RSA encryption. Default bit
-security is set to 2048. Generates in approximately 20 seconds.</p>
-<p>Initiates an Euler totient function and a semi prime from two distinct primes.
-Standard encryption exponent is 65537.</p></div>
+security is set to 2048. Generates in approximately 20 seconds. Standard
+encryption exponent is 65537.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class generateKeys:
     &#34;&#34;&#34; Generate a public and a private key for RSA encryption. Default bit
-        security is set to 2048. Generates in approximately 20 seconds.
+        security is set to 2048. Generates in approximately 20 seconds. Standard
+        encryption exponent is 65537.
         &#34;&#34;&#34;
 
     def __init__(self):
-        &#34;&#34;&#34; Initiates an Euler totient function and a semi prime from two distinct primes.
-            Standard encryption exponent is 65537.
-            &#34;&#34;&#34;
         p, q = prime_pair()    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
@@ -115,9 +116,15 @@ Standard encryption exponent is 65537.</p></div>
         return self._n, d
 
     def get_public(self):
+        &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
+            exponent e.
+            &#34;&#34;&#34;
         return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
+        &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
+            encryption exponent d.
+            &#34;&#34;&#34;
         d = self._keygeneration()[1]
         return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)
 
@@ -134,12 +141,16 @@ Standard encryption exponent is 65537.</p></div>
 <span>def <span class="ident">get_private</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns the private key consisting of the semi prime n and private
+encryption exponent d.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_private(self):
+    &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
+        encryption exponent d.
+        &#34;&#34;&#34;
     d = self._keygeneration()[1]
     return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)</code></pre>
 </details>
@@ -148,12 +159,16 @@ Standard encryption exponent is 65537.</p></div>
 <span>def <span class="ident">get_public</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Returns the public key consisting of the semi prime n and ecryption
+exponent e.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_public(self):
+    &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
+        exponent e.
+        &#34;&#34;&#34;
     return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)</code></pre>
 </details>
 </dd>
