@@ -45,7 +45,7 @@ def big_prime(length = 1024):
         if prime:
             return prime
 
-def primePair(length = 1024):
+def prime_pair(length = 1024):
     """ Generates two distinct large primes (default 1024 bits). """
     p = big_prime(length)
     q = big_prime(length)

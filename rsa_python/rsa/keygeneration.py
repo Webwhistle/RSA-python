@@ -1,7 +1,7 @@
 from math import gcd
 
-from context import common
-from common.largeprimes import primePair
+from ..common.largeprimes import prime_pair
+
 
 class generateKeys:
     """ Generate a public and a private key for RSA encryption. Default bit
@@ -12,7 +12,7 @@ class generateKeys:
         """ Initiates an Euler totient function and a semi prime from two distinct primes.
             Standard encryption exponent is 65537.
             """
-        p, q = primePair()    # Private primes
+        p, q = prime_pair()    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
@@ -37,6 +37,7 @@ class generateKeys:
             """
         bit_strength = len(bin(self._n))-2
         return "Bit Length Security: " + str(bit_strength)
+
 
 if __name__ == "__main__":
     rsa = generateKeys()

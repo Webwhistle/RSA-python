@@ -1,5 +1,5 @@
-from context import rsa
-from rsa.keygeneration import generateKeys
+from ..rsa.keygeneration import generateKeys
+
 
 class Encryption:
     """ Use this class for encrypting a message. Requires public key. """
@@ -16,6 +16,7 @@ class Encryption:
         encrypt_this = str_to_int_list(message)
         return [self.encrypt(c) for c in encrypt_this]
 
+
 class Decryption:
     """ Use this class for decrypting a message. Requires private key. """
     def __init__(self, key_n, key_d):
@@ -28,6 +29,7 @@ class Decryption:
     def large_decrypt(self, cipher):
         decrypted_list = [self.decrypt(c) for c in cipher]
         return int_list_to_str(decrypted_list)
+
 
 def padding():
     # TODO Create a padding scheme in accordance with PKCS1.5 Standard
