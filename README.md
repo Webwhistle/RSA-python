@@ -1,7 +1,6 @@
-<h1 align="center"> GitPoint </h1> <br>
+<h1 align="center"> RSA Encryption in Python </h1> <br>
 <p align="center">
-  <a href="https://gitpoint.co/">
-    <img alt="GitPoint" title="GitPoint" src="https://live.staticflickr.com/5341/17989431455_864434c8e9_b.jpg" width="450">
+    <img alt="RSA Encryption in Python" title="RSA Encryption in Python" src="https://live.staticflickr.com/5341/17989431455_864434c8e9_b.jpg" width="450">
   </a>
 </p>
 
