@@ -6,22 +6,28 @@
 
 ### Safe asymmetric encryption
 
-RSA cryptosystem is a safe method of encryption and decryption with distinct public and private keys. This particular project aims to be in accordance with the recommendations from National Institute of Standards and Technology (NIST) as much as possible, however, this has not thoroughly been achieved everywhere. Please see links below and documentation for more details in regards of security.
+RSA cryptosystem is a safe method of encryption and decryption with distinct public and private keys. This particular project has been **partly** inspired by the recommendations from National Institute of Standards and Technology (NIST). However, the implementation is a text-book version of RSA and doesn't include a sophisticated padding scheme.
+
+### Usage
+To use the modules from this package, download or clone this repo and from the root folder run python3 -m 'module.module' in terminal. Example: Run 'python3 -m rsa_python.terminal_gui' to access a simple terminal GUI.
 
 ### Documentation
-For documentation see my this [page][RSA-python].
+For documentation and features see my private GitHub [page][RSA-python].
 
 ### Links
 
-See this [pdf][NIST] from NIST for recommended methods.
+[NIST:s recommended methods (pdf)][NIST] - In-depth explanation of approved RSA methods.
 
-See this [problem][euler] from project euler for inspiration for this project.
+[RSA cryptosystem on wikipedia][wiki] - gives a good overview of the mechanics of RSA.
+
+[Another implementation of RSA][git] - for comparison to my implementation.
+
+### Contact
+Tim Holsteiner – [Webwhistle](https://github.com/webwhistle)
+
+timhols@kth.se
 
 [RSA-python]: https://webwhistle.github.io/RSA-python/
 [NIST]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5-draft.pdf
-[euler]: https://projecteuler.net/problem=182
-
-
-
-
-Tim Holsteiner – [Webwhistle](https://github.com/webwhistle)
+[wiki]: https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+[git]: https://github.com/sybrenstuvel/python-rsa

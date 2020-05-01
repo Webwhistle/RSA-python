@@ -1,5 +1,6 @@
 """ Tests for expected characteristics of keys as well as correct encryption and
-    decryption. """
+    decryption.
+    """
 
 from math import gcd
 

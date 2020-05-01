@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>rsa_python.common.largeprimes API documentation</title>
+<title>RSA-python.rsa_python.common.largeprimes API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>rsa_python.common.largeprimes</code></h1>
+<h1 class="title">Module <code>RSA-python.rsa_python.common.largeprimes</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -54,7 +54,8 @@ def miller_rabin(w, iterations = 50):
 def random_int(length = 1024):
     &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
         The bit-length of the integer is determined by the input argument,
-        default is 1024 for optimal run time. &#34;&#34;&#34;
+        default is 1024 for optimal run time.
+        &#34;&#34;&#34;
     if length &lt; 2:
         return &#34;FAILURE&#34;
     if length &gt; 1024:
@@ -68,7 +69,8 @@ def random_int(length = 1024):
 
 def big_prime(length = 1024):
     &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
-        returned. (default size: 1024 bits). &#34;&#34;&#34;
+        returned. (default size: 1024 bits).
+        &#34;&#34;&#34;
     while True:
         prime = random_int(length)
         if prime:
@@ -77,7 +79,8 @@ def big_prime(length = 1024):
 def prime_pair(length = 1024):
     &#34;&#34;&#34; Generates two distinct primes (p,q) using big_prime function.
         Returns failure if p == q, which should never happen if the bit size is
-        large enough. (default size: 1024 bits). &#34;&#34;&#34;
+        large enough. (default size: 1024 bits).
+        &#34;&#34;&#34;
     p = big_prime(length)
     q = big_prime(length)
     if p != q:
@@ -93,7 +96,7 @@ def prime_pair(length = 1024):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="rsa_python.common.largeprimes.big_prime"><code class="name flex">
+<dt id="RSA-python.rsa_python.common.largeprimes.big_prime"><code class="name flex">
 <span>def <span class="ident">big_prime</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
@@ -105,14 +108,15 @@ returned. (default size: 1024 bits).</p></div>
 </summary>
 <pre><code class="python">def big_prime(length = 1024):
     &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
-        returned. (default size: 1024 bits). &#34;&#34;&#34;
+        returned. (default size: 1024 bits).
+        &#34;&#34;&#34;
     while True:
         prime = random_int(length)
         if prime:
             return prime</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.common.largeprimes.miller_rabin"><code class="name flex">
+<dt id="RSA-python.rsa_python.common.largeprimes.miller_rabin"><code class="name flex">
 <span>def <span class="ident">miller_rabin</span></span>(<span>w, iterations=50)</span>
 </code></dt>
 <dd>
@@ -149,7 +153,7 @@ primes is less than pow(2,-100) if the prime is less than 2048 bits.</p></div>
     return &#34;PROBABLY PRIME&#34;</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.common.largeprimes.prime_pair"><code class="name flex">
+<dt id="RSA-python.rsa_python.common.largeprimes.prime_pair"><code class="name flex">
 <span>def <span class="ident">prime_pair</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
@@ -163,7 +167,8 @@ large enough. (default size: 1024 bits).</p></div>
 <pre><code class="python">def prime_pair(length = 1024):
     &#34;&#34;&#34; Generates two distinct primes (p,q) using big_prime function.
         Returns failure if p == q, which should never happen if the bit size is
-        large enough. (default size: 1024 bits). &#34;&#34;&#34;
+        large enough. (default size: 1024 bits).
+        &#34;&#34;&#34;
     p = big_prime(length)
     q = big_prime(length)
     if p != q:
@@ -172,7 +177,7 @@ large enough. (default size: 1024 bits).</p></div>
         return &#34;FAILURE&#34;</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.common.largeprimes.random_int"><code class="name flex">
+<dt id="RSA-python.rsa_python.common.largeprimes.random_int"><code class="name flex">
 <span>def <span class="ident">random_int</span></span>(<span>length=1024)</span>
 </code></dt>
 <dd>
@@ -186,7 +191,8 @@ default is 1024 for optimal run time.</p></div>
 <pre><code class="python">def random_int(length = 1024):
     &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
         The bit-length of the integer is determined by the input argument,
-        default is 1024 for optimal run time. &#34;&#34;&#34;
+        default is 1024 for optimal run time.
+        &#34;&#34;&#34;
     if length &lt; 2:
         return &#34;FAILURE&#34;
     if length &gt; 1024:
@@ -212,15 +218,15 @@ default is 1024 for optimal run time.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="rsa_python.common" href="index.html">rsa_python.common</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common" href="index.html">RSA-python.rsa_python.common</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="rsa_python.common.largeprimes.big_prime" href="#rsa_python.common.largeprimes.big_prime">big_prime</a></code></li>
-<li><code><a title="rsa_python.common.largeprimes.miller_rabin" href="#rsa_python.common.largeprimes.miller_rabin">miller_rabin</a></code></li>
-<li><code><a title="rsa_python.common.largeprimes.prime_pair" href="#rsa_python.common.largeprimes.prime_pair">prime_pair</a></code></li>
-<li><code><a title="rsa_python.common.largeprimes.random_int" href="#rsa_python.common.largeprimes.random_int">random_int</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common.largeprimes.big_prime" href="#RSA-python.rsa_python.common.largeprimes.big_prime">big_prime</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common.largeprimes.miller_rabin" href="#RSA-python.rsa_python.common.largeprimes.miller_rabin">miller_rabin</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common.largeprimes.prime_pair" href="#RSA-python.rsa_python.common.largeprimes.prime_pair">prime_pair</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common.largeprimes.random_int" href="#RSA-python.rsa_python.common.largeprimes.random_int">random_int</a></code></li>
 </ul>
 </li>
 </ul>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>rsa_python.rsa.keygeneration API documentation</title>
+<title>RSA-python.rsa_python.rsa.keygeneration API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,14 +17,15 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>rsa_python.rsa.keygeneration</code></h1>
+<h1 class="title">Module <code>RSA-python.rsa_python.rsa.keygeneration</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from math import gcd
+<pre><code class="python">import base64
+from math import gcd
 
 from ..common.largeprimes import prime_pair
 
@@ -35,8 +36,8 @@ class generateKeys:
         encryption exponent is 65537.
         &#34;&#34;&#34;
 
-    def __init__(self):
-        p, q = prime_pair()    # Private primes
+    def __init__(self, bit_length = 1024):
+        p, q = prime_pair(bit_length)    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
@@ -48,18 +49,30 @@ class generateKeys:
         d = pow(self._e, -1, self._phi)
         return self._n, d
 
+    def _make_base64(self):
+        # Turns semi prime and exponents into base64
+        data_bytes_n = str(self._n).encode(&#34;utf-8&#34;)
+        data_bytes_d = str(self._keygeneration()[1]).encode(&#34;utf-8&#34;)
+        key_n = (base64.b64encode(data_bytes_n))
+        key_d = (base64.b64encode(data_bytes_d))
+        return key_n, key_d
+
     def get_public(self):
         &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
             exponent e.
             &#34;&#34;&#34;
-        return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)
+        key_n = self._make_base64()[0]
+        return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
+        &#34;\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
         &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
             encryption exponent d.
             &#34;&#34;&#34;
-        d = self._keygeneration()[1]
-        return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)
+        key_n = self._make_base64()[0]
+        key_d = self._make_base64()[1]
+        return &#34;Private Key in base64: n = &#34; + str(key_n) + \
+        &#34;\n&#34; + &#34;d = &#34; + str(key_d)
 
     def get_security(self):
         &#34;&#34;&#34; Prints the bit-length of the semi prime n as a measure of security,
@@ -85,8 +98,9 @@ if __name__ == &#34;__main__&#34;:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="rsa_python.rsa.keygeneration.generateKeys"><code class="flex name class">
+<dt id="RSA-python.rsa_python.rsa.keygeneration.generateKeys"><code class="flex name class">
 <span>class <span class="ident">generateKeys</span></span>
+<span>(</span><span>bit_length=1024)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate a public and a private key for RSA encryption. Default bit
@@ -102,8 +116,8 @@ encryption exponent is 65537.</p></div>
         encryption exponent is 65537.
         &#34;&#34;&#34;
 
-    def __init__(self):
-        p, q = prime_pair()    # Private primes
+    def __init__(self, bit_length = 1024):
+        p, q = prime_pair(bit_length)    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
@@ -115,18 +129,30 @@ encryption exponent is 65537.</p></div>
         d = pow(self._e, -1, self._phi)
         return self._n, d
 
+    def _make_base64(self):
+        # Turns semi prime and exponents into base64
+        data_bytes_n = str(self._n).encode(&#34;utf-8&#34;)
+        data_bytes_d = str(self._keygeneration()[1]).encode(&#34;utf-8&#34;)
+        key_n = (base64.b64encode(data_bytes_n))
+        key_d = (base64.b64encode(data_bytes_d))
+        return key_n, key_d
+
     def get_public(self):
         &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
             exponent e.
             &#34;&#34;&#34;
-        return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)
+        key_n = self._make_base64()[0]
+        return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
+        &#34;\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
         &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
             encryption exponent d.
             &#34;&#34;&#34;
-        d = self._keygeneration()[1]
-        return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)
+        key_n = self._make_base64()[0]
+        key_d = self._make_base64()[1]
+        return &#34;Private Key in base64: n = &#34; + str(key_n) + \
+        &#34;\n&#34; + &#34;d = &#34; + str(key_d)
 
     def get_security(self):
         &#34;&#34;&#34; Prints the bit-length of the semi prime n as a measure of security,
@@ -137,7 +163,7 @@ encryption exponent is 65537.</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="rsa_python.rsa.keygeneration.generateKeys.get_private"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_private"><code class="name flex">
 <span>def <span class="ident">get_private</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -151,11 +177,13 @@ encryption exponent d.</p></div>
     &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
         encryption exponent d.
         &#34;&#34;&#34;
-    d = self._keygeneration()[1]
-    return &#34;Private Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;d = &#34; + str(d)</code></pre>
+    key_n = self._make_base64()[0]
+    key_d = self._make_base64()[1]
+    return &#34;Private Key in base64: n = &#34; + str(key_n) + \
+    &#34;\n&#34; + &#34;d = &#34; + str(key_d)</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.keygeneration.generateKeys.get_public"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_public"><code class="name flex">
 <span>def <span class="ident">get_public</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -169,10 +197,12 @@ exponent e.</p></div>
     &#34;&#34;&#34; Returns the public key consisting of the semi prime n and ecryption
         exponent e.
         &#34;&#34;&#34;
-    return &#34;Public Key: n = &#34; + str(self._n) + &#34;\n&#34; + &#34;e = &#34; + str(self._e)</code></pre>
+    key_n = self._make_base64()[0]
+    return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
+    &#34;\n&#34; + &#34;e = &#34; + str(self._e)</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.keygeneration.generateKeys.get_security"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_security"><code class="name flex">
 <span>def <span class="ident">get_security</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -203,17 +233,17 @@ recommended length is at least 2048.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="rsa_python.rsa" href="index.html">rsa_python.rsa</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa" href="index.html">RSA-python.rsa_python.rsa</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="rsa_python.rsa.keygeneration.generateKeys" href="#rsa_python.rsa.keygeneration.generateKeys">generateKeys</a></code></h4>
+<h4><code><a title="RSA-python.rsa_python.rsa.keygeneration.generateKeys" href="#RSA-python.rsa_python.rsa.keygeneration.generateKeys">generateKeys</a></code></h4>
 <ul class="">
-<li><code><a title="rsa_python.rsa.keygeneration.generateKeys.get_private" href="#rsa_python.rsa.keygeneration.generateKeys.get_private">get_private</a></code></li>
-<li><code><a title="rsa_python.rsa.keygeneration.generateKeys.get_public" href="#rsa_python.rsa.keygeneration.generateKeys.get_public">get_public</a></code></li>
-<li><code><a title="rsa_python.rsa.keygeneration.generateKeys.get_security" href="#rsa_python.rsa.keygeneration.generateKeys.get_security">get_security</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_private" href="#RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_private">get_private</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_public" href="#RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_public">get_public</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_security" href="#RSA-python.rsa_python.rsa.keygeneration.generateKeys.get_security">get_security</a></code></li>
 </ul>
 </li>
 </ul>

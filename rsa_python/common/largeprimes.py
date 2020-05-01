@@ -26,7 +26,10 @@ def miller_rabin(w, iterations = 50):
     return "PROBABLY PRIME"
 
 def random_int(length = 1024):
-    """ Runs a randomly bit generated integer through the Miller Rabin test. """
+    """ Runs a randomly bit generated integer through the Miller Rabin test.
+        The bit-length of the integer is determined by the input argument,
+        default is 1024 for optimal run time.
+        """
     if length < 2:
         return "FAILURE"
     if length > 1024:
@@ -39,14 +42,19 @@ def random_int(length = 1024):
         return False
 
 def big_prime(length = 1024):
-    """ Generates a large prime (default 1024 bits). """
+    """ Generates a prime by looping the random_int function until a prime is
+        returned. (default size: 1024 bits).
+        """
     while True:
         prime = random_int(length)
         if prime:
             return prime
 
 def prime_pair(length = 1024):
-    """ Generates two distinct large primes (default 1024 bits). """
+    """ Generates two distinct primes (p,q) using big_prime function.
+        Returns failure if p == q, which should never happen if the bit size is
+        large enough. (default size: 1024 bits).
+        """
     p = big_prime(length)
     q = big_prime(length)
     if p != q:

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>rsa_python.rsa.encrypt API documentation</title>
+<title>RSA-python.rsa_python.rsa.encrypt API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,21 +17,24 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>rsa_python.rsa.encrypt</code></h1>
+<h1 class="title">Module <code>RSA-python.rsa_python.rsa.encrypt</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from ..rsa.keygeneration import generateKeys
-
+<pre><code class="python">import base64
+from ..rsa.keygeneration import generateKeys
 
 class Encryption:
     &#34;&#34;&#34; This class implements RSA encryption using a public key consisting of
-        a semi prime, n, and an encryption exponent, e. &#34;&#34;&#34;
-    def __init__(self, key_n, key_e):
-        self._e, self._n = key_e, key_n
+        a semi prime, n, and an encryption exponent, e. The keys have to be
+        in base64.
+        &#34;&#34;&#34;
+    def __init__(self, key_n, key_e = 65537):
+        self._e = key_e
+        self._n = int(base64.b64decode(key_n))
 
     def encrypt(self, message):
         &#34;&#34;&#34; Encrypts any integer using RSA Encryption. &#34;&#34;&#34;
@@ -40,16 +43,20 @@ class Encryption:
 
     def encrypt_large(self, message):
         &#34;&#34;&#34; Encrypts anything by converting input message to a integer list
-            and then transforming the list elements using encrypt function.&#34;&#34;&#34;
+            and then transforming the list elements using encrypt function.
+            &#34;&#34;&#34;
         encrypt_this = str_to_int_list(message)
         return [self.encrypt(c) for c in encrypt_this]
 
 
 class Decryption:
     &#34;&#34;&#34; This class implements RSA decryption using a private key consisting of
-        a semi prime, n, and a private exponent, d. &#34;&#34;&#34;
+        a semi prime, n, and a private exponent, d. The keys have to be in
+        base64.
+        &#34;&#34;&#34;
     def __init__(self, key_n, key_d):
-        self._n, self._d = key_n, key_d
+        self._d = int(base64.b64decode(key_d))
+        self._n = int(base64.b64decode(key_n))
 
     def decrypt(self, cipher):
         &#34;&#34;&#34; Decrypts any integer. &#34;&#34;&#34;
@@ -58,14 +65,16 @@ class Decryption:
 
     def large_decrypt(self, cipher):
         &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
-            decrypt function. &#34;&#34;&#34;
+            decrypt function.
+            &#34;&#34;&#34;
         decrypted_list = [self.decrypt(c) for c in cipher]
         return int_list_to_str(decrypted_list)
 
 
 def padding():
     &#34;&#34;&#34; For optimal security this function is used to pad a message. In other
-        words: add randomly generated bits to a message. &#34;&#34;&#34;
+        words: add randomly generated bits to a message.
+        &#34;&#34;&#34;
     # TODO Create a padding scheme in accordance with PKCS1.5 Standard
     pass
 
@@ -76,36 +85,7 @@ def str_to_int_list(message):
 def int_list_to_str(int_list):
     &#34;&#34;&#34; Reverses a list of utf8 encoded bytes into a string. &#34;&#34;&#34;
     byte_list = [bytes([c]) for c in int_list]
-    return &#39;&#39;.join([c.decode() for c in byte_list])
-
-def example1():
-    &#34;&#34;&#34; Illustrative example 1. &#34;&#34;&#34;
-    n = 27674576861
-    d = 7791285473
-    e = 65537
-    enc = Encryption(n, e)
-    dec = Decryption(n, d)
-    M = &#34;abcdefg&#34;
-    m = int(M, 36)
-    c = enc.encrypt(m)
-    print(&#34;Message: &#34; + str(M) + &#34; Base 10: &#34; + str(m) + &#34;\n&#34; &#34;Cipher: &#34; + str(c))
-    print(convert2(dec.decrypt(c)))
-
-def example2():
-    &#34;&#34;&#34; Illustrative example 2. &#34;&#34;&#34;
-    n = 14729086960354792574366908492086140063887574816749250032839507750323750978874560480762038919320703597540434060394568637394512332280365017351078453288786330702746426826982610583321562502164535577516617319943690361585304811093819261661816009285612729477717201016904510862434372800061902009100693740937528647324296591741075122222903011483892947832508438583334331728363303410235339670612957045716260841669483923510125278436631596612915583798161824761340108977513655092128682566397691866815217097068674820061471469949503917618185118818852496638752239417084646384313376317462228198575508540958712308336449976157884856108063
-    d = 8162723933046768486519158893946451731394429365767928974361519774963129767195996714241989312140133888683775044227394188171089429000760752402324937416249134551837133563574902976734350825924530145954247845649859376120027934432877848903019019138096866420963558614736283847652721670174836824550058694643499709642028721925336938103442522214129195684703049006929848133895672649053444121439503914939520263263446279977299629761101826370597889939181231912482584555493218685283622461226898198504607595164825358973442590884135775126330220751227771496473556497948465358464636865837645855980914645989275882577352066318297857366273
-    e = 65537
-    enc = Encryption(n, e)
-    dec = Decryption(n, d)
-    M = &#34;Hejsan tjabadado ahseofhias 19012918%%&#34;
-    c2 = enc.encrypt_large(M)
-    print(&#34;Message: &#34; + str(M) + &#34;\n&#34; &#34;Cipher: &#34; + str(c2))
-    print(&#34;Decrypted: &#34; + str(dec.large_decrypt(c2)))
-    print(len(c2))
-
-if __name__ == &#34;__main__&#34;:
-    example2()</code></pre>
+    return &#39;&#39;.join([c.decode() for c in byte_list])</code></pre>
 </details>
 </section>
 <section>
@@ -115,53 +95,7 @@ if __name__ == &#34;__main__&#34;:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="rsa_python.rsa.encrypt.example1"><code class="name flex">
-<span>def <span class="ident">example1</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Illustrative example 1.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def example1():
-    &#34;&#34;&#34; Illustrative example 1. &#34;&#34;&#34;
-    n = 27674576861
-    d = 7791285473
-    e = 65537
-    enc = Encryption(n, e)
-    dec = Decryption(n, d)
-    M = &#34;abcdefg&#34;
-    m = int(M, 36)
-    c = enc.encrypt(m)
-    print(&#34;Message: &#34; + str(M) + &#34; Base 10: &#34; + str(m) + &#34;\n&#34; &#34;Cipher: &#34; + str(c))
-    print(convert2(dec.decrypt(c)))</code></pre>
-</details>
-</dd>
-<dt id="rsa_python.rsa.encrypt.example2"><code class="name flex">
-<span>def <span class="ident">example2</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Illustrative example 2.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def example2():
-    &#34;&#34;&#34; Illustrative example 2. &#34;&#34;&#34;
-    n = 14729086960354792574366908492086140063887574816749250032839507750323750978874560480762038919320703597540434060394568637394512332280365017351078453288786330702746426826982610583321562502164535577516617319943690361585304811093819261661816009285612729477717201016904510862434372800061902009100693740937528647324296591741075122222903011483892947832508438583334331728363303410235339670612957045716260841669483923510125278436631596612915583798161824761340108977513655092128682566397691866815217097068674820061471469949503917618185118818852496638752239417084646384313376317462228198575508540958712308336449976157884856108063
-    d = 8162723933046768486519158893946451731394429365767928974361519774963129767195996714241989312140133888683775044227394188171089429000760752402324937416249134551837133563574902976734350825924530145954247845649859376120027934432877848903019019138096866420963558614736283847652721670174836824550058694643499709642028721925336938103442522214129195684703049006929848133895672649053444121439503914939520263263446279977299629761101826370597889939181231912482584555493218685283622461226898198504607595164825358973442590884135775126330220751227771496473556497948465358464636865837645855980914645989275882577352066318297857366273
-    e = 65537
-    enc = Encryption(n, e)
-    dec = Decryption(n, d)
-    M = &#34;Hejsan tjabadado ahseofhias 19012918%%&#34;
-    c2 = enc.encrypt_large(M)
-    print(&#34;Message: &#34; + str(M) + &#34;\n&#34; &#34;Cipher: &#34; + str(c2))
-    print(&#34;Decrypted: &#34; + str(dec.large_decrypt(c2)))
-    print(len(c2))</code></pre>
-</details>
-</dd>
-<dt id="rsa_python.rsa.encrypt.int_list_to_str"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.int_list_to_str"><code class="name flex">
 <span>def <span class="ident">int_list_to_str</span></span>(<span>int_list)</span>
 </code></dt>
 <dd>
@@ -176,7 +110,7 @@ if __name__ == &#34;__main__&#34;:
     return &#39;&#39;.join([c.decode() for c in byte_list])</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.encrypt.padding"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.padding"><code class="name flex">
 <span>def <span class="ident">padding</span></span>(<span>)</span>
 </code></dt>
 <dd>
@@ -188,12 +122,13 @@ words: add randomly generated bits to a message.</p></div>
 </summary>
 <pre><code class="python">def padding():
     &#34;&#34;&#34; For optimal security this function is used to pad a message. In other
-        words: add randomly generated bits to a message. &#34;&#34;&#34;
+        words: add randomly generated bits to a message.
+        &#34;&#34;&#34;
     # TODO Create a padding scheme in accordance with PKCS1.5 Standard
     pass</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.encrypt.str_to_int_list"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.str_to_int_list"><code class="name flex">
 <span>def <span class="ident">str_to_int_list</span></span>(<span>message)</span>
 </code></dt>
 <dd>
@@ -212,22 +147,26 @@ words: add randomly generated bits to a message.</p></div>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="rsa_python.rsa.encrypt.Decryption"><code class="flex name class">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption"><code class="flex name class">
 <span>class <span class="ident">Decryption</span></span>
 <span>(</span><span>key_n, key_d)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This class implements RSA decryption using a private key consisting of
-a semi prime, n, and a private exponent, d.</p></div>
+a semi prime, n, and a private exponent, d. The keys have to be in
+base64.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Decryption:
     &#34;&#34;&#34; This class implements RSA decryption using a private key consisting of
-        a semi prime, n, and a private exponent, d. &#34;&#34;&#34;
+        a semi prime, n, and a private exponent, d. The keys have to be in
+        base64.
+        &#34;&#34;&#34;
     def __init__(self, key_n, key_d):
-        self._n, self._d = key_n, key_d
+        self._d = int(base64.b64decode(key_d))
+        self._n = int(base64.b64decode(key_n))
 
     def decrypt(self, cipher):
         &#34;&#34;&#34; Decrypts any integer. &#34;&#34;&#34;
@@ -236,13 +175,14 @@ a semi prime, n, and a private exponent, d.</p></div>
 
     def large_decrypt(self, cipher):
         &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
-            decrypt function. &#34;&#34;&#34;
+            decrypt function.
+            &#34;&#34;&#34;
         decrypted_list = [self.decrypt(c) for c in cipher]
         return int_list_to_str(decrypted_list)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="rsa_python.rsa.encrypt.Decryption.decrypt"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt"><code class="name flex">
 <span>def <span class="ident">decrypt</span></span>(<span>self, cipher)</span>
 </code></dt>
 <dd>
@@ -257,7 +197,7 @@ a semi prime, n, and a private exponent, d.</p></div>
     return m</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.encrypt.Decryption.large_decrypt"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt"><code class="name flex">
 <span>def <span class="ident">large_decrypt</span></span>(<span>self, cipher)</span>
 </code></dt>
 <dd>
@@ -269,29 +209,34 @@ decrypt function.</p></div>
 </summary>
 <pre><code class="python">def large_decrypt(self, cipher):
     &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
-        decrypt function. &#34;&#34;&#34;
+        decrypt function.
+        &#34;&#34;&#34;
     decrypted_list = [self.decrypt(c) for c in cipher]
     return int_list_to_str(decrypted_list)</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
-<dt id="rsa_python.rsa.encrypt.Encryption"><code class="flex name class">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption"><code class="flex name class">
 <span>class <span class="ident">Encryption</span></span>
-<span>(</span><span>key_n, key_e)</span>
+<span>(</span><span>key_n, key_e=65537)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This class implements RSA encryption using a public key consisting of
-a semi prime, n, and an encryption exponent, e.</p></div>
+a semi prime, n, and an encryption exponent, e. The keys have to be
+in base64.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Encryption:
     &#34;&#34;&#34; This class implements RSA encryption using a public key consisting of
-        a semi prime, n, and an encryption exponent, e. &#34;&#34;&#34;
-    def __init__(self, key_n, key_e):
-        self._e, self._n = key_e, key_n
+        a semi prime, n, and an encryption exponent, e. The keys have to be
+        in base64.
+        &#34;&#34;&#34;
+    def __init__(self, key_n, key_e = 65537):
+        self._e = key_e
+        self._n = int(base64.b64decode(key_n))
 
     def encrypt(self, message):
         &#34;&#34;&#34; Encrypts any integer using RSA Encryption. &#34;&#34;&#34;
@@ -300,13 +245,14 @@ a semi prime, n, and an encryption exponent, e.</p></div>
 
     def encrypt_large(self, message):
         &#34;&#34;&#34; Encrypts anything by converting input message to a integer list
-            and then transforming the list elements using encrypt function.&#34;&#34;&#34;
+            and then transforming the list elements using encrypt function.
+            &#34;&#34;&#34;
         encrypt_this = str_to_int_list(message)
         return [self.encrypt(c) for c in encrypt_this]</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="rsa_python.rsa.encrypt.Encryption.encrypt"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt"><code class="name flex">
 <span>def <span class="ident">encrypt</span></span>(<span>self, message)</span>
 </code></dt>
 <dd>
@@ -321,7 +267,7 @@ a semi prime, n, and an encryption exponent, e.</p></div>
     return c</code></pre>
 </details>
 </dd>
-<dt id="rsa_python.rsa.encrypt.Encryption.encrypt_large"><code class="name flex">
+<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large"><code class="name flex">
 <span>def <span class="ident">encrypt_large</span></span>(<span>self, message)</span>
 </code></dt>
 <dd>
@@ -333,7 +279,8 @@ and then transforming the list elements using encrypt function.</p></div>
 </summary>
 <pre><code class="python">def encrypt_large(self, message):
     &#34;&#34;&#34; Encrypts anything by converting input message to a integer list
-        and then transforming the list elements using encrypt function.&#34;&#34;&#34;
+        and then transforming the list elements using encrypt function.
+        &#34;&#34;&#34;
     encrypt_this = str_to_int_list(message)
     return [self.encrypt(c) for c in encrypt_this]</code></pre>
 </details>
@@ -351,32 +298,30 @@ and then transforming the list elements using encrypt function.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="rsa_python.rsa" href="index.html">rsa_python.rsa</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa" href="index.html">RSA-python.rsa_python.rsa</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="rsa_python.rsa.encrypt.example1" href="#rsa_python.rsa.encrypt.example1">example1</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.example2" href="#rsa_python.rsa.encrypt.example2">example2</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.int_list_to_str" href="#rsa_python.rsa.encrypt.int_list_to_str">int_list_to_str</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.padding" href="#rsa_python.rsa.encrypt.padding">padding</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.str_to_int_list" href="#rsa_python.rsa.encrypt.str_to_int_list">str_to_int_list</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.int_list_to_str" href="#RSA-python.rsa_python.rsa.encrypt.int_list_to_str">int_list_to_str</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.padding" href="#RSA-python.rsa_python.rsa.encrypt.padding">padding</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.str_to_int_list" href="#RSA-python.rsa_python.rsa.encrypt.str_to_int_list">str_to_int_list</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="rsa_python.rsa.encrypt.Decryption" href="#rsa_python.rsa.encrypt.Decryption">Decryption</a></code></h4>
+<h4><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption" href="#RSA-python.rsa_python.rsa.encrypt.Decryption">Decryption</a></code></h4>
 <ul class="">
-<li><code><a title="rsa_python.rsa.encrypt.Decryption.decrypt" href="#rsa_python.rsa.encrypt.Decryption.decrypt">decrypt</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.Decryption.large_decrypt" href="#rsa_python.rsa.encrypt.Decryption.large_decrypt">large_decrypt</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt" href="#RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt">decrypt</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt" href="#RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt">large_decrypt</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="rsa_python.rsa.encrypt.Encryption" href="#rsa_python.rsa.encrypt.Encryption">Encryption</a></code></h4>
+<h4><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption" href="#RSA-python.rsa_python.rsa.encrypt.Encryption">Encryption</a></code></h4>
 <ul class="">
-<li><code><a title="rsa_python.rsa.encrypt.Encryption.encrypt" href="#rsa_python.rsa.encrypt.Encryption.encrypt">encrypt</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.Encryption.encrypt_large" href="#rsa_python.rsa.encrypt.Encryption.encrypt_large">encrypt_large</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt" href="#RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt">encrypt</a></code></li>
+<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large" href="#RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large">encrypt_large</a></code></li>
 </ul>
 </li>
 </ul>

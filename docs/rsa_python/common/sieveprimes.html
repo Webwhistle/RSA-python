@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>rsa_python.common API documentation</title>
+<title>RSA-python.rsa_python.common.sieveprimes API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,26 +17,59 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Documentation: <code>rsa_python.common</code></h1>
+<h1 class="title">Module <code>RSA-python.rsa_python.common.sieveprimes</code></h1>
 </header>
 <section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from math import sqrt
+import secrets
+
+def _sieve(length):
+    &#34;&#34;&#34; Creates a list with all the primes up to a chosen length. Very
+        ineffective for finding large primes. This is for simple RSA testing
+        purposes only.
+        &#34;&#34;&#34;
+    numbers = {i:True for i in range(2,length)} # Primes start at 2
+    for i in range(2, int(sqrt(length))+1):     # Loop for divisors
+        if numbers[i]:
+            for j in range(i**2,length,i):      # Loop for each number in list
+                numbers[j] = False
+    return [i for i in numbers if numbers[i]]
+
+def primePair():
+    &#34;&#34;&#34; Randomly pick out two large primes of similar magnitude. &#34;&#34;&#34;
+    p = secrets.choice(_sieve(200000)[-5000:])
+    q = secrets.choice(_sieve(200000)[-5000:])
+    return p,q</code></pre>
+</details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="rsa_python.common.largeprimes" href="largeprimes.html">rsa_python.common.largeprimes</a></code></dt>
+<dt id="RSA-python.rsa_python.common.sieveprimes.primePair"><code class="name flex">
+<span>def <span class="ident">primePair</span></span>(<span>)</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="rsa_python.common.sieveprimes" href="sieveprimes.html">rsa_python.common.sieveprimes</a></code></dt>
-<dd>
-<div class="desc"></div>
+<div class="desc"><p>Randomly pick out two large primes of similar magnitude.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def primePair():
+    &#34;&#34;&#34; Randomly pick out two large primes of similar magnitude. &#34;&#34;&#34;
+    p = secrets.choice(_sieve(200000)[-5000:])
+    q = secrets.choice(_sieve(200000)[-5000:])
+    return p,q</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -49,13 +82,12 @@
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="rsa_python" href="../index.html">rsa_python</a></code></li>
+<li><code><a title="RSA-python.rsa_python.common" href="index.html">RSA-python.rsa_python.common</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="rsa_python.common.largeprimes" href="largeprimes.html">rsa_python.common.largeprimes</a></code></li>
-<li><code><a title="rsa_python.common.sieveprimes" href="sieveprimes.html">rsa_python.common.sieveprimes</a></code></li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="RSA-python.rsa_python.common.sieveprimes.primePair" href="#RSA-python.rsa_python.common.sieveprimes.primePair">primePair</a></code></li>
 </ul>
 </li>
 </ul>

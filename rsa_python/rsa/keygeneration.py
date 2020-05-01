@@ -1,3 +1,4 @@
+import base64
 from math import gcd
 
 from ..common.largeprimes import prime_pair
@@ -5,14 +6,12 @@ from ..common.largeprimes import prime_pair
 
 class generateKeys:
     """ Generate a public and a private key for RSA encryption. Default bit
-        security is set to 2048. Generates in approximately 20 seconds.
+        security is set to 2048. Generates in approximately 20 seconds. Standard
+        encryption exponent is 65537.
         """
 
-    def __init__(self):
-        """ Initiates an Euler totient function and a semi prime from two distinct primes.
-            Standard encryption exponent is 65537.
-            """
-        p, q = prime_pair()    # Private primes
+    def __init__(self, bit_length = 1024):
+        p, q = prime_pair(bit_length)    # Private primes
         self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
@@ -24,12 +23,30 @@ class generateKeys:
         d = pow(self._e, -1, self._phi)
         return self._n, d
 
+    def _make_base64(self):
+        # Turns semi prime and exponents into base64
+        data_bytes_n = str(self._n).encode("utf-8")
+        data_bytes_d = str(self._keygeneration()[1]).encode("utf-8")
+        key_n = (base64.b64encode(data_bytes_n))
+        key_d = (base64.b64encode(data_bytes_d))
+        return key_n, key_d
+
     def get_public(self):
-        return "Public Key: n = " + str(self._n) + "\n" + "e = " + str(self._e)
+        """ Returns the public key consisting of the semi prime n and ecryption
+            exponent e.
+            """
+        key_n = self._make_base64()[0]
+        return "Public Key: n in base64 = " + str(key_n) + \
+        "\n" + "e = " + str(self._e)
 
     def get_private(self):
-        d = self._keygeneration()[1]
-        return "Private Key: n = " + str(self._n) + "\n" + "d = " + str(d)
+        """ Returns the private key consisting of the semi prime n and private
+            encryption exponent d.
+            """
+        key_n = self._make_base64()[0]
+        key_d = self._make_base64()[1]
+        return "Private Key in base64: n = " + str(key_n) + \
+        "\n" + "d = " + str(key_d)
 
     def get_security(self):
         """ Prints the bit-length of the semi prime n as a measure of security,
