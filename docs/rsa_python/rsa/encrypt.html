@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>RSA-python.rsa_python.rsa.encrypt API documentation</title>
+<title>rsa_python.rsa.encrypt API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>RSA-python.rsa_python.rsa.encrypt</code></h1>
+<h1 class="title">Module <code>rsa_python.rsa.encrypt</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -95,7 +95,7 @@ def int_list_to_str(int_list):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="RSA-python.rsa_python.rsa.encrypt.int_list_to_str"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.int_list_to_str"><code class="name flex">
 <span>def <span class="ident">int_list_to_str</span></span>(<span>int_list)</span>
 </code></dt>
 <dd>
@@ -110,7 +110,7 @@ def int_list_to_str(int_list):
     return &#39;&#39;.join([c.decode() for c in byte_list])</code></pre>
 </details>
 </dd>
-<dt id="RSA-python.rsa_python.rsa.encrypt.padding"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.padding"><code class="name flex">
 <span>def <span class="ident">padding</span></span>(<span>)</span>
 </code></dt>
 <dd>
@@ -128,7 +128,7 @@ words: add randomly generated bits to a message.</p></div>
     pass</code></pre>
 </details>
 </dd>
-<dt id="RSA-python.rsa_python.rsa.encrypt.str_to_int_list"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.str_to_int_list"><code class="name flex">
 <span>def <span class="ident">str_to_int_list</span></span>(<span>message)</span>
 </code></dt>
 <dd>
@@ -147,7 +147,7 @@ words: add randomly generated bits to a message.</p></div>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption"><code class="flex name class">
+<dt id="rsa_python.rsa.encrypt.Decryption"><code class="flex name class">
 <span>class <span class="ident">Decryption</span></span>
 <span>(</span><span>key_n, key_d)</span>
 </code></dt>
@@ -182,7 +182,7 @@ base64.</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.Decryption.decrypt"><code class="name flex">
 <span>def <span class="ident">decrypt</span></span>(<span>self, cipher)</span>
 </code></dt>
 <dd>
@@ -197,7 +197,7 @@ base64.</p></div>
     return m</code></pre>
 </details>
 </dd>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.Decryption.large_decrypt"><code class="name flex">
 <span>def <span class="ident">large_decrypt</span></span>(<span>self, cipher)</span>
 </code></dt>
 <dd>
@@ -217,7 +217,7 @@ decrypt function.</p></div>
 </dd>
 </dl>
 </dd>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption"><code class="flex name class">
+<dt id="rsa_python.rsa.encrypt.Encryption"><code class="flex name class">
 <span>class <span class="ident">Encryption</span></span>
 <span>(</span><span>key_n, key_e=65537)</span>
 </code></dt>
@@ -252,7 +252,7 @@ in base64.</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.Encryption.encrypt"><code class="name flex">
 <span>def <span class="ident">encrypt</span></span>(<span>self, message)</span>
 </code></dt>
 <dd>
@@ -267,7 +267,7 @@ in base64.</p></div>
     return c</code></pre>
 </details>
 </dd>
-<dt id="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large"><code class="name flex">
+<dt id="rsa_python.rsa.encrypt.Encryption.encrypt_large"><code class="name flex">
 <span>def <span class="ident">encrypt_large</span></span>(<span>self, message)</span>
 </code></dt>
 <dd>
@@ -298,30 +298,30 @@ and then transforming the list elements using encrypt function.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="RSA-python.rsa_python.rsa" href="index.html">RSA-python.rsa_python.rsa</a></code></li>
+<li><code><a title="rsa_python.rsa" href="index.html">rsa_python.rsa</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.int_list_to_str" href="#RSA-python.rsa_python.rsa.encrypt.int_list_to_str">int_list_to_str</a></code></li>
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.padding" href="#RSA-python.rsa_python.rsa.encrypt.padding">padding</a></code></li>
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.str_to_int_list" href="#RSA-python.rsa_python.rsa.encrypt.str_to_int_list">str_to_int_list</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.int_list_to_str" href="#rsa_python.rsa.encrypt.int_list_to_str">int_list_to_str</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.padding" href="#rsa_python.rsa.encrypt.padding">padding</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.str_to_int_list" href="#rsa_python.rsa.encrypt.str_to_int_list">str_to_int_list</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption" href="#RSA-python.rsa_python.rsa.encrypt.Decryption">Decryption</a></code></h4>
+<h4><code><a title="rsa_python.rsa.encrypt.Decryption" href="#rsa_python.rsa.encrypt.Decryption">Decryption</a></code></h4>
 <ul class="">
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt" href="#RSA-python.rsa_python.rsa.encrypt.Decryption.decrypt">decrypt</a></code></li>
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt" href="#RSA-python.rsa_python.rsa.encrypt.Decryption.large_decrypt">large_decrypt</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.Decryption.decrypt" href="#rsa_python.rsa.encrypt.Decryption.decrypt">decrypt</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.Decryption.large_decrypt" href="#rsa_python.rsa.encrypt.Decryption.large_decrypt">large_decrypt</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption" href="#RSA-python.rsa_python.rsa.encrypt.Encryption">Encryption</a></code></h4>
+<h4><code><a title="rsa_python.rsa.encrypt.Encryption" href="#rsa_python.rsa.encrypt.Encryption">Encryption</a></code></h4>
 <ul class="">
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt" href="#RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt">encrypt</a></code></li>
-<li><code><a title="RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large" href="#RSA-python.rsa_python.rsa.encrypt.Encryption.encrypt_large">encrypt_large</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.Encryption.encrypt" href="#rsa_python.rsa.encrypt.Encryption.encrypt">encrypt</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.Encryption.encrypt_large" href="#rsa_python.rsa.encrypt.Encryption.encrypt_large">encrypt_large</a></code></li>
 </ul>
 </li>
 </ul>
