@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>RSA-python.rsa_python API documentation</title>
-<meta name="description" content="" />
+<title>RSA-python.rsa_python.tests.encryption_test API documentation</title>
+<meta name="description" content="Tests for expected characteristics of keys as well as correct encryption and
+decryption." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,34 +18,80 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Documentation of<code>RSA-python.rsa_python</code></h1>
+<h1 class="title">Module <code>RSA-python.rsa_python.tests.encryption_test</code></h1>
 </header>
 <section id="section-intro">
+<p>Tests for expected characteristics of keys as well as correct encryption and
+decryption.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; Tests for expected characteristics of keys as well as correct encryption and
+    decryption.
+    &#34;&#34;&#34;
+
+from math import gcd
+
+from ..rsa.keygeneration import generateKeys
+from ..rsa.encrypt import Encryption, Decryption
+
+def main():
+    gk = generateKeys()
+    d = gk._keygeneration()[1]
+    assert gcd(gk._phi, gk._e) == 1
+    assert d*gk._e%gk._phi == 1
+
+    n = gk._n
+    e = 65537
+    enc = Encryption(n, e)
+    dec = Decryption(n, d)
+    _message = &#34;123456789123456789ABCDEFKLMNOPQRSTYZXabcabc&#34;
+    _encrypted = enc.encrypt_large(_message)
+    _decrypted = dec.large_decrypt(_encrypted)
+    assert _decrypted == _message
+
+    print(&#34;Ran 1 test without failures.&#34;)
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="RSA-python.rsa_python.common" href="common/index.html">RSA-python.rsa_python.common</a></code></dt>
+<dt id="RSA-python.rsa_python.tests.encryption_test.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
 <dd>
 <div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="RSA-python.rsa_python.rsa" href="rsa/index.html">RSA-python.rsa_python.rsa</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="RSA-python.rsa_python.terminal_gui" href="terminal_gui.html">RSA-python.rsa_python.terminal_gui</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="RSA-python.rsa_python.tests" href="tests/index.html">RSA-python.rsa_python.tests</a></code></dt>
-<dd>
-<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    gk = generateKeys()
+    d = gk._keygeneration()[1]
+    assert gcd(gk._phi, gk._e) == 1
+    assert d*gk._e%gk._phi == 1
+
+    n = gk._n
+    e = 65537
+    enc = Encryption(n, e)
+    dec = Decryption(n, d)
+    _message = &#34;123456789123456789ABCDEFKLMNOPQRSTYZXabcabc&#34;
+    _encrypted = enc.encrypt_large(_message)
+    _decrypted = dec.large_decrypt(_encrypted)
+    assert _decrypted == _message
+
+    print(&#34;Ran 1 test without failures.&#34;)</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -57,15 +104,12 @@
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="RSA-python" href="../index.html">RSA-python</a></code></li>
+<li><code><a title="RSA-python.rsa_python.tests" href="index.html">RSA-python.rsa_python.tests</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="RSA-python.rsa_python.common" href="common/index.html">RSA-python.rsa_python.common</a></code></li>
-<li><code><a title="RSA-python.rsa_python.rsa" href="rsa/index.html">RSA-python.rsa_python.rsa</a></code></li>
-<li><code><a title="RSA-python.rsa_python.terminal_gui" href="terminal_gui.html">RSA-python.rsa_python.terminal_gui</a></code></li>
-<li><code><a title="RSA-python.rsa_python.tests" href="tests/index.html">RSA-python.rsa_python.tests</a></code></li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="RSA-python.rsa_python.tests.encryption_test.main" href="#RSA-python.rsa_python.tests.encryption_test.main">main</a></code></li>
 </ul>
 </li>
 </ul>
