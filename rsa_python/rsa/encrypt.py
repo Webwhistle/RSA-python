@@ -46,9 +46,9 @@ class Decryption:
             split_list = cipher.split("', b'")
         else:
             split_list = cipher
-            bytes_list = [base64.b64decode(c) for c in split_list]
-            int_list = [int(c) for c in bytes_list]
-            decrypted = [self.decrypt(c) for c in int_list]
+        bytes_list = [base64.b64decode(c) for c in split_list]
+        int_list = [int(c) for c in bytes_list]
+        decrypted = [self.decrypt(c) for c in int_list]
         return int_list_to_str(decrypted)
 
 

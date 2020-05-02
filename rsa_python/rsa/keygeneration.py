@@ -37,7 +37,7 @@ class generateKeys:
             """
         key_n = self._make_base64()[0]
         return "Public Key: n in base64 = " + str(key_n) + \
-        "\n" + "e = " + str(self._e)
+        "\n\n" + "e = " + str(self._e)
 
     def get_private(self):
         """ Returns the private key consisting of the semi prime n and private
@@ -46,14 +46,14 @@ class generateKeys:
         key_n = self._make_base64()[0]
         key_d = self._make_base64()[1]
         return "Private Key in base64: n = " + str(key_n) + \
-        "\n" + "d = " + str(key_d)
+        "\n\n" + "d = " + str(key_d)
 
     def get_security(self):
         """ Prints the bit-length of the semi prime n as a measure of security,
             recommended length is at least 2048.
             """
         bit_strength = len(bin(self._n))-2
-        return "Bit Length Security: " + str(bit_strength)
+        return "Calculated bit length: " + str(bit_strength)
 
 
 if __name__ == "__main__":
