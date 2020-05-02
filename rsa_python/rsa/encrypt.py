@@ -21,6 +21,8 @@ class Encryption:
             """
         encrypt_this = str_to_int_list(message)
         cipher_list = [_base64(self.encrypt(c)) for c in encrypt_this]
+        with open("cipher.txt", "w") as f:
+            f.write(str(cipher_list))
         return cipher_list
 
 
@@ -51,8 +53,21 @@ class Decryption:
         decrypted = [self.decrypt(c) for c in int_list]
         return int_list_to_str(decrypted)
 
+    def decrypt_txt(self,
+        cipher_file = "cipher.txt",
+        write_file = "decrypted.txt"
+        ):
+        """ Decrypts a chosen file of ciphers and writes to a new file. """
+        c_file = open((cipher_file), "r")
+        cipher = c_file.read()
+        cipher = cipher.replace("]", " ")
+        cipher = cipher[2:]
+        decrypted = self.large_decrypt(cipher)
+        c_file.close()
+        with open(write_file, "w") as f:
+            f.write(str(decrypted))
 
-def padding():
+def _padding():
     """ For optimal security this function is used to pad a message. In other
         words: add randomly generated bits to a message.
         """
