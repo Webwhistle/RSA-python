@@ -9,12 +9,12 @@ from ..rsa.encrypt import Encryption, Decryption
 
 def main():
     gk = generateKeys()
-    d = gk._keygeneration()[1]
-    assert gcd(gk._phi, gk._e) == 1
-    assert d*gk._e%gk._phi == 1
-
-    n = gk._n
+    n, d = gk._make_base64()
     e = 65537
+    d_int = gk._keygeneration()[1]
+    assert gcd(gk._phi, gk._e) == 1
+    assert d_int*gk._e%gk._phi == 1
+
     enc = Encryption(n, e)
     dec = Decryption(n, d)
     _message = "123456789123456789ABCDEFKLMNOPQRSTYZXabcabc"

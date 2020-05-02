@@ -20,7 +20,8 @@ class Encryption:
             and then transforming the list elements using encrypt function.
             """
         encrypt_this = str_to_int_list(message)
-        return [self.encrypt(c) for c in encrypt_this]
+        cipher_list = [_base64(self.encrypt(c)) for c in encrypt_this]
+        return cipher_list
 
 
 class Decryption:
@@ -41,8 +42,14 @@ class Decryption:
         """ Decrypts any list consisting of cipher elements by iterating the
             decrypt function.
             """
-        decrypted_list = [self.decrypt(c) for c in cipher]
-        return int_list_to_str(decrypted_list)
+        if isinstance(cipher, str):
+            split_list = cipher.split("', b'")
+        else:
+            split_list = cipher
+            bytes_list = [base64.b64decode(c) for c in split_list]
+            int_list = [int(c) for c in bytes_list]
+            decrypted = [self.decrypt(c) for c in int_list]
+        return int_list_to_str(decrypted)
 
 
 def padding():
@@ -60,3 +67,8 @@ def int_list_to_str(int_list):
     """ Reverses a list of utf8 encoded bytes into a string. """
     byte_list = [bytes([c]) for c in int_list]
     return ''.join([c.decode() for c in byte_list])
+
+def _base64(message):
+    data_bytes = str(message).encode("utf-8")
+    base64_message = base64.b64encode(data_bytes)
+    return base64_message

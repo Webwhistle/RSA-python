@@ -72,11 +72,10 @@ def terminal_gui():
             print(menu)
 
         if ans == '3':
-            print("Enter cipher with numbers seperated by commas, no brackets.")
+            print("Enter cipher with numbers seperated by commas, no brackets."
+            + " Skip the first b. ")
             decrypt_this = input("Enter cipher: ")
             print("\n\n")
-            decrypt_this = decrypt_this.split(",")
-            decrypt_this = [int(i) for i in decrypt_this]
             dec = en.Decryption(n, d)
             print("Decrypted: " + str(dec.large_decrypt(decrypt_this)))
             print("\n\n")
