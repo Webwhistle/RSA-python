@@ -48,7 +48,7 @@ def terminal_gui():
 
         if ans == '1':
             print("Choose a bit length security. Should be between 128 and" \
-            + " 1024 bits. \n")
+            + " 2048 bits. Larger keys take longer time to generate. \n")
             bit_length = int(int(input("Chosen bit length: "))/2)
             print("\n\n")
             rsa = keygeneration.generateKeys(bit_length)

@@ -11,6 +11,8 @@ RSA cryptosystem is a safe method of encryption and decryption with distinct pub
 ### Usage
 To use the modules from this package, download or clone this repo and from the root folder run python3 -m 'module.module' in terminal. Example: Run 'python3 -m rsa_python.terminal_gui' to access a simple terminal GUI.
 
+![](/gif/terminalinstruction.gif)
+
 ### Documentation
 For documentation and features see my private GitHub [page][RSA-python].
 
