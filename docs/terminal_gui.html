@@ -50,7 +50,8 @@ def terminal_gui():
     (3) Decrypt something, uses key from (1) or (5). \n \
     (4) Enter a public key. \n \
     (5) Enter a private key. \n \
-    (6) Quit. \n \
+    (6) Decrypt a txt file. \n \
+    (7) Quit. \n \
     &#34;
     )
     print(lines)
@@ -61,22 +62,22 @@ def terminal_gui():
 
     while True:
 
-        ans = input(&#34;Enter a number from 1 to 6: &#34;)
+        ans = input(&#34;Enter a number from 1 to 7: &#34;)
         try:
             int(ans)
         except:
             print(&#34;Failure, none integer detected. &#34;)
             sys.exit()
 
-        if int(ans) &gt; 5 or int(ans) &lt; 1:
+        if int(ans) &gt; 6 or int(ans) &lt; 1:
             sys.exit()
 
         if ans == &#39;1&#39;:
             print(&#34;Choose a bit length security. Should be between 128 and&#34; \
-            + &#34; 1024 bits. \n&#34;)
-            bit_length = int(int(input(&#34;Bit Security: &#34;))/2)
+            + &#34; 2048 bits. Larger keys take longer time to generate. \n&#34;)
+            bit_length = int(int(input(&#34;Chosen bit length: &#34;))/2)
             print(&#34;\n\n&#34;)
-            rsa = keygeneration.generateKeys(bit_length)
+            rsa = keygeneration.generateKeys(None, None, bit_length)
             n = rsa._make_base64()[0]
             d = rsa._make_base64()[1]
             e = rsa._e
@@ -89,7 +90,10 @@ def terminal_gui():
             print(menu)
 
         if ans == &#39;2&#39;:
-            encrypt_this = str(input(&#34;Enter a string to encrypt: &#34;))
+            print(&#34;Saves cipher to cipher.txt.&#34;)
+            print(&#34;\n&#34;)
+            encrypt_this = str(input(&#34;Enter a string in UTF-8 (no åäö)&#34;\
+            + &#34; to encrypt: &#34;))
             print(&#34;\n\n&#34;)
             enc = en.Encryption(n, e)
             cipher = enc.encrypt_large(encrypt_this)
@@ -98,11 +102,10 @@ def terminal_gui():
             print(menu)
 
         if ans == &#39;3&#39;:
-            print(&#34;Enter cipher with numbers seperated by commas, no brackets.&#34;)
+            print(&#34;Enter cipher with numbers seperated by commas, no brackets.&#34;
+            + &#34; Skip the first b. &#34;)
             decrypt_this = input(&#34;Enter cipher: &#34;)
             print(&#34;\n\n&#34;)
-            decrypt_this = decrypt_this.split(&#34;,&#34;)
-            decrypt_this = [int(i) for i in decrypt_this]
             dec = en.Decryption(n, d)
             print(&#34;Decrypted: &#34; + str(dec.large_decrypt(decrypt_this)))
             print(&#34;\n\n&#34;)
@@ -129,6 +132,25 @@ def terminal_gui():
             d = input(&#34;d: &#34;)
             d = base64.b64encode(base64.b64decode(d))
             print(&#34;\n\n&#34;)
+
+        if ans == &#39;6&#39;:
+            print(&#34;Enter name of file to open or leave blank to use cipher.txt.&#34;)
+            cipher_file = input(&#34;Cipher file: &#34;)
+            print(&#34;\n&#34;)
+            print(&#34;Enter name of file to write to or leave blank to use decrypted.txt.&#34;)
+            decrypt_file = input(&#34;Write file: &#34;)
+            if cipher_file == &#34;&#34;:
+                cipher_file = &#34;cipher.txt&#34;
+            if decrypt_file == &#34;&#34;:
+                decrypt_file = &#34;decrypted.txt&#34;
+            if decrypt_file != &#34;&#34;:
+                open(decrypt_file,&#34;w&#34;)
+            dec = en.Decryption(n, d)
+            dec.decrypt_txt(cipher_file, decrypt_file)
+            print(&#34;Decrypted: &#34;)
+            with open(decrypt_file, &#34;r&#34;) as f:
+                for line in f:
+                    print(line)
 
 if __name__ == &#34;__main__&#34;:
     terminal_gui()</code></pre>
@@ -172,7 +194,8 @@ later usage. Makes use of nearly all documented classes and functions.</p></div>
     (3) Decrypt something, uses key from (1) or (5). \n \
     (4) Enter a public key. \n \
     (5) Enter a private key. \n \
-    (6) Quit. \n \
+    (6) Decrypt a txt file. \n \
+    (7) Quit. \n \
     &#34;
     )
     print(lines)
@@ -183,22 +206,22 @@ later usage. Makes use of nearly all documented classes and functions.</p></div>
 
     while True:
 
-        ans = input(&#34;Enter a number from 1 to 6: &#34;)
+        ans = input(&#34;Enter a number from 1 to 7: &#34;)
         try:
             int(ans)
         except:
             print(&#34;Failure, none integer detected. &#34;)
             sys.exit()
 
-        if int(ans) &gt; 5 or int(ans) &lt; 1:
+        if int(ans) &gt; 6 or int(ans) &lt; 1:
             sys.exit()
 
         if ans == &#39;1&#39;:
             print(&#34;Choose a bit length security. Should be between 128 and&#34; \
-            + &#34; 1024 bits. \n&#34;)
-            bit_length = int(int(input(&#34;Bit Security: &#34;))/2)
+            + &#34; 2048 bits. Larger keys take longer time to generate. \n&#34;)
+            bit_length = int(int(input(&#34;Chosen bit length: &#34;))/2)
             print(&#34;\n\n&#34;)
-            rsa = keygeneration.generateKeys(bit_length)
+            rsa = keygeneration.generateKeys(None, None, bit_length)
             n = rsa._make_base64()[0]
             d = rsa._make_base64()[1]
             e = rsa._e
@@ -211,7 +234,10 @@ later usage. Makes use of nearly all documented classes and functions.</p></div>
             print(menu)
 
         if ans == &#39;2&#39;:
-            encrypt_this = str(input(&#34;Enter a string to encrypt: &#34;))
+            print(&#34;Saves cipher to cipher.txt.&#34;)
+            print(&#34;\n&#34;)
+            encrypt_this = str(input(&#34;Enter a string in UTF-8 (no åäö)&#34;\
+            + &#34; to encrypt: &#34;))
             print(&#34;\n\n&#34;)
             enc = en.Encryption(n, e)
             cipher = enc.encrypt_large(encrypt_this)
@@ -220,11 +246,10 @@ later usage. Makes use of nearly all documented classes and functions.</p></div>
             print(menu)
 
         if ans == &#39;3&#39;:
-            print(&#34;Enter cipher with numbers seperated by commas, no brackets.&#34;)
+            print(&#34;Enter cipher with numbers seperated by commas, no brackets.&#34;
+            + &#34; Skip the first b. &#34;)
             decrypt_this = input(&#34;Enter cipher: &#34;)
             print(&#34;\n\n&#34;)
-            decrypt_this = decrypt_this.split(&#34;,&#34;)
-            decrypt_this = [int(i) for i in decrypt_this]
             dec = en.Decryption(n, d)
             print(&#34;Decrypted: &#34; + str(dec.large_decrypt(decrypt_this)))
             print(&#34;\n\n&#34;)
@@ -250,7 +275,26 @@ later usage. Makes use of nearly all documented classes and functions.</p></div>
             print(&#34;\n\n&#34;)
             d = input(&#34;d: &#34;)
             d = base64.b64encode(base64.b64decode(d))
-            print(&#34;\n\n&#34;)</code></pre>
+            print(&#34;\n\n&#34;)
+
+        if ans == &#39;6&#39;:
+            print(&#34;Enter name of file to open or leave blank to use cipher.txt.&#34;)
+            cipher_file = input(&#34;Cipher file: &#34;)
+            print(&#34;\n&#34;)
+            print(&#34;Enter name of file to write to or leave blank to use decrypted.txt.&#34;)
+            decrypt_file = input(&#34;Write file: &#34;)
+            if cipher_file == &#34;&#34;:
+                cipher_file = &#34;cipher.txt&#34;
+            if decrypt_file == &#34;&#34;:
+                decrypt_file = &#34;decrypted.txt&#34;
+            if decrypt_file != &#34;&#34;:
+                open(decrypt_file,&#34;w&#34;)
+            dec = en.Decryption(n, d)
+            dec.decrypt_txt(cipher_file, decrypt_file)
+            print(&#34;Decrypted: &#34;)
+            with open(decrypt_file, &#34;r&#34;) as f:
+                for line in f:
+                    print(line)</code></pre>
 </details>
 </dd>
 </dl>

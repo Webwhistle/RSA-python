@@ -46,7 +46,10 @@ class Encryption:
             and then transforming the list elements using encrypt function.
             &#34;&#34;&#34;
         encrypt_this = str_to_int_list(message)
-        return [self.encrypt(c) for c in encrypt_this]
+        cipher_list = [_base64(self.encrypt(c)) for c in encrypt_this]
+        with open(&#34;cipher.txt&#34;, &#34;w&#34;) as f:
+            f.write(str(cipher_list))
+        return cipher_list
 
 
 class Decryption:
@@ -67,11 +70,30 @@ class Decryption:
         &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
             decrypt function.
             &#34;&#34;&#34;
-        decrypted_list = [self.decrypt(c) for c in cipher]
-        return int_list_to_str(decrypted_list)
+        if isinstance(cipher, str):
+            split_list = cipher.split(&#34;&#39;, b&#39;&#34;)
+        else:
+            split_list = cipher
+        bytes_list = [base64.b64decode(c) for c in split_list]
+        int_list = [int(c) for c in bytes_list]
+        decrypted = [self.decrypt(c) for c in int_list]
+        return int_list_to_str(decrypted)
 
+    def decrypt_txt(self,
+        cipher_file = &#34;cipher.txt&#34;,
+        write_file = &#34;decrypted.txt&#34;
+        ):
+        &#34;&#34;&#34; Decrypts a chosen file of ciphers and writes to a new file. &#34;&#34;&#34;
+        c_file = open((cipher_file), &#34;r&#34;)
+        cipher = c_file.read()
+        cipher = cipher.replace(&#34;]&#34;, &#34; &#34;)
+        cipher = cipher[2:]
+        decrypted = self.large_decrypt(cipher)
+        c_file.close()
+        with open(write_file, &#34;w&#34;) as f:
+            f.write(str(decrypted))
 
-def padding():
+def _padding():
     &#34;&#34;&#34; For optimal security this function is used to pad a message. In other
         words: add randomly generated bits to a message.
         &#34;&#34;&#34;
@@ -85,7 +107,12 @@ def str_to_int_list(message):
 def int_list_to_str(int_list):
     &#34;&#34;&#34; Reverses a list of utf8 encoded bytes into a string. &#34;&#34;&#34;
     byte_list = [bytes([c]) for c in int_list]
-    return &#39;&#39;.join([c.decode() for c in byte_list])</code></pre>
+    return &#39;&#39;.join([c.decode() for c in byte_list])
+
+def _base64(message):
+    data_bytes = str(message).encode(&#34;utf-8&#34;)
+    base64_message = base64.b64encode(data_bytes)
+    return base64_message</code></pre>
 </details>
 </section>
 <section>
@@ -108,24 +135,6 @@ def int_list_to_str(int_list):
     &#34;&#34;&#34; Reverses a list of utf8 encoded bytes into a string. &#34;&#34;&#34;
     byte_list = [bytes([c]) for c in int_list]
     return &#39;&#39;.join([c.decode() for c in byte_list])</code></pre>
-</details>
-</dd>
-<dt id="rsa_python.rsa.encrypt.padding"><code class="name flex">
-<span>def <span class="ident">padding</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>For optimal security this function is used to pad a message. In other
-words: add randomly generated bits to a message.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def padding():
-    &#34;&#34;&#34; For optimal security this function is used to pad a message. In other
-        words: add randomly generated bits to a message.
-        &#34;&#34;&#34;
-    # TODO Create a padding scheme in accordance with PKCS1.5 Standard
-    pass</code></pre>
 </details>
 </dd>
 <dt id="rsa_python.rsa.encrypt.str_to_int_list"><code class="name flex">
@@ -177,8 +186,28 @@ base64.</p></div>
         &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
             decrypt function.
             &#34;&#34;&#34;
-        decrypted_list = [self.decrypt(c) for c in cipher]
-        return int_list_to_str(decrypted_list)</code></pre>
+        if isinstance(cipher, str):
+            split_list = cipher.split(&#34;&#39;, b&#39;&#34;)
+        else:
+            split_list = cipher
+        bytes_list = [base64.b64decode(c) for c in split_list]
+        int_list = [int(c) for c in bytes_list]
+        decrypted = [self.decrypt(c) for c in int_list]
+        return int_list_to_str(decrypted)
+
+    def decrypt_txt(self,
+        cipher_file = &#34;cipher.txt&#34;,
+        write_file = &#34;decrypted.txt&#34;
+        ):
+        &#34;&#34;&#34; Decrypts a chosen file of ciphers and writes to a new file. &#34;&#34;&#34;
+        c_file = open((cipher_file), &#34;r&#34;)
+        cipher = c_file.read()
+        cipher = cipher.replace(&#34;]&#34;, &#34; &#34;)
+        cipher = cipher[2:]
+        decrypted = self.large_decrypt(cipher)
+        c_file.close()
+        with open(write_file, &#34;w&#34;) as f:
+            f.write(str(decrypted))</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -197,6 +226,30 @@ base64.</p></div>
     return m</code></pre>
 </details>
 </dd>
+<dt id="rsa_python.rsa.encrypt.Decryption.decrypt_txt"><code class="name flex">
+<span>def <span class="ident">decrypt_txt</span></span>(<span>self, cipher_file='cipher.txt', write_file='decrypted.txt')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decrypts a chosen file of ciphers and writes to a new file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decrypt_txt(self,
+    cipher_file = &#34;cipher.txt&#34;,
+    write_file = &#34;decrypted.txt&#34;
+    ):
+    &#34;&#34;&#34; Decrypts a chosen file of ciphers and writes to a new file. &#34;&#34;&#34;
+    c_file = open((cipher_file), &#34;r&#34;)
+    cipher = c_file.read()
+    cipher = cipher.replace(&#34;]&#34;, &#34; &#34;)
+    cipher = cipher[2:]
+    decrypted = self.large_decrypt(cipher)
+    c_file.close()
+    with open(write_file, &#34;w&#34;) as f:
+        f.write(str(decrypted))</code></pre>
+</details>
+</dd>
 <dt id="rsa_python.rsa.encrypt.Decryption.large_decrypt"><code class="name flex">
 <span>def <span class="ident">large_decrypt</span></span>(<span>self, cipher)</span>
 </code></dt>
@@ -211,8 +264,14 @@ decrypt function.</p></div>
     &#34;&#34;&#34; Decrypts any list consisting of cipher elements by iterating the
         decrypt function.
         &#34;&#34;&#34;
-    decrypted_list = [self.decrypt(c) for c in cipher]
-    return int_list_to_str(decrypted_list)</code></pre>
+    if isinstance(cipher, str):
+        split_list = cipher.split(&#34;&#39;, b&#39;&#34;)
+    else:
+        split_list = cipher
+    bytes_list = [base64.b64decode(c) for c in split_list]
+    int_list = [int(c) for c in bytes_list]
+    decrypted = [self.decrypt(c) for c in int_list]
+    return int_list_to_str(decrypted)</code></pre>
 </details>
 </dd>
 </dl>
@@ -248,7 +307,10 @@ in base64.</p></div>
             and then transforming the list elements using encrypt function.
             &#34;&#34;&#34;
         encrypt_this = str_to_int_list(message)
-        return [self.encrypt(c) for c in encrypt_this]</code></pre>
+        cipher_list = [_base64(self.encrypt(c)) for c in encrypt_this]
+        with open(&#34;cipher.txt&#34;, &#34;w&#34;) as f:
+            f.write(str(cipher_list))
+        return cipher_list</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -282,7 +344,10 @@ and then transforming the list elements using encrypt function.</p></div>
         and then transforming the list elements using encrypt function.
         &#34;&#34;&#34;
     encrypt_this = str_to_int_list(message)
-    return [self.encrypt(c) for c in encrypt_this]</code></pre>
+    cipher_list = [_base64(self.encrypt(c)) for c in encrypt_this]
+    with open(&#34;cipher.txt&#34;, &#34;w&#34;) as f:
+        f.write(str(cipher_list))
+    return cipher_list</code></pre>
 </details>
 </dd>
 </dl>
@@ -304,7 +369,6 @@ and then transforming the list elements using encrypt function.</p></div>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="rsa_python.rsa.encrypt.int_list_to_str" href="#rsa_python.rsa.encrypt.int_list_to_str">int_list_to_str</a></code></li>
-<li><code><a title="rsa_python.rsa.encrypt.padding" href="#rsa_python.rsa.encrypt.padding">padding</a></code></li>
 <li><code><a title="rsa_python.rsa.encrypt.str_to_int_list" href="#rsa_python.rsa.encrypt.str_to_int_list">str_to_int_list</a></code></li>
 </ul>
 </li>
@@ -314,6 +378,7 @@ and then transforming the list elements using encrypt function.</p></div>
 <h4><code><a title="rsa_python.rsa.encrypt.Decryption" href="#rsa_python.rsa.encrypt.Decryption">Decryption</a></code></h4>
 <ul class="">
 <li><code><a title="rsa_python.rsa.encrypt.Decryption.decrypt" href="#rsa_python.rsa.encrypt.Decryption.decrypt">decrypt</a></code></li>
+<li><code><a title="rsa_python.rsa.encrypt.Decryption.decrypt_txt" href="#rsa_python.rsa.encrypt.Decryption.decrypt_txt">decrypt_txt</a></code></li>
 <li><code><a title="rsa_python.rsa.encrypt.Decryption.large_decrypt" href="#rsa_python.rsa.encrypt.Decryption.large_decrypt">large_decrypt</a></code></li>
 </ul>
 </li>

@@ -51,7 +51,7 @@ def terminal_gui():
             + " 2048 bits. Larger keys take longer time to generate. \n")
             bit_length = int(int(input("Chosen bit length: "))/2)
             print("\n\n")
-            rsa = keygeneration.generateKeys(bit_length)
+            rsa = keygeneration.generateKeys(None, None, bit_length)
             n = rsa._make_base64()[0]
             d = rsa._make_base64()[1]
             e = rsa._e

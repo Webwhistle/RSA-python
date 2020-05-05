@@ -10,9 +10,11 @@ class generateKeys:
         encryption exponent is 65537.
         """
 
-    def __init__(self, bit_length = 1024):
-        p, q = prime_pair(bit_length)    # Private primes
-        self._p, self._q = p, q
+    def __init__(self, p = None, q = None, bit_length = 1024):
+        if p is None or q is None:
+            self._p, self._q = prime_pair(bit_length)    # Private primes
+        else:
+            self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
         self._e = 65537

@@ -51,11 +51,10 @@ def miller_rabin(w, iterations = 50):
             return &#34;COMPOSITE&#34;
     return &#34;PROBABLY PRIME&#34;
 
-def random_int(length = 1024):
-    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
-        The bit-length of the integer is determined by the input argument,
-        default is 1024 for optimal run time.
-        &#34;&#34;&#34;
+def _random_int(length = 1024):
+    # Runs a randomly bit generated integer through the Miller Rabin test.
+    # The bit-length of the integer is determined by the input argument,
+    # default is 1024 for optimal run time.
     if length &lt; 2:
         return &#34;FAILURE&#34;
     if length &gt; 1024:
@@ -67,12 +66,11 @@ def random_int(length = 1024):
     else:
         return False
 
-def big_prime(length = 1024):
-    &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
-        returned. (default size: 1024 bits).
-        &#34;&#34;&#34;
+def _big_prime(length = 1024):
+    # Generates a prime by looping the random_int function until a prime is
+    # returned. (default size: 1024 bits).
     while True:
-        prime = random_int(length)
+        prime = _random_int(length)
         if prime:
             return prime
 
@@ -81,8 +79,8 @@ def prime_pair(length = 1024):
         Returns failure if p == q, which should never happen if the bit size is
         large enough. (default size: 1024 bits).
         &#34;&#34;&#34;
-    p = big_prime(length)
-    q = big_prime(length)
+    p = _big_prime(length)
+    q = _big_prime(length)
     if p != q:
         return p, q
     else:
@@ -96,26 +94,6 @@ def prime_pair(length = 1024):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="rsa_python.common.largeprimes.big_prime"><code class="name flex">
-<span>def <span class="ident">big_prime</span></span>(<span>length=1024)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Generates a prime by looping the random_int function until a prime is
-returned. (default size: 1024 bits).</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def big_prime(length = 1024):
-    &#34;&#34;&#34; Generates a prime by looping the random_int function until a prime is
-        returned. (default size: 1024 bits).
-        &#34;&#34;&#34;
-    while True:
-        prime = random_int(length)
-        if prime:
-            return prime</code></pre>
-</details>
-</dd>
 <dt id="rsa_python.common.largeprimes.miller_rabin"><code class="name flex">
 <span>def <span class="ident">miller_rabin</span></span>(<span>w, iterations=50)</span>
 </code></dt>
@@ -169,40 +147,12 @@ large enough. (default size: 1024 bits).</p></div>
         Returns failure if p == q, which should never happen if the bit size is
         large enough. (default size: 1024 bits).
         &#34;&#34;&#34;
-    p = big_prime(length)
-    q = big_prime(length)
+    p = _big_prime(length)
+    q = _big_prime(length)
     if p != q:
         return p, q
     else:
         return &#34;FAILURE&#34;</code></pre>
-</details>
-</dd>
-<dt id="rsa_python.common.largeprimes.random_int"><code class="name flex">
-<span>def <span class="ident">random_int</span></span>(<span>length=1024)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Runs a randomly bit generated integer through the Miller Rabin test.
-The bit-length of the integer is determined by the input argument,
-default is 1024 for optimal run time.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def random_int(length = 1024):
-    &#34;&#34;&#34; Runs a randomly bit generated integer through the Miller Rabin test.
-        The bit-length of the integer is determined by the input argument,
-        default is 1024 for optimal run time.
-        &#34;&#34;&#34;
-    if length &lt; 2:
-        return &#34;FAILURE&#34;
-    if length &gt; 1024:
-        return &#34;FAILURE TOO LARGE&#34;
-    c = secrets.randbits(length)
-    if miller_rabin(c) == &#34;PROBABLY PRIME&#34; and len(bin(c))-2 == length:
-        prime = c
-        return prime
-    else:
-        return False</code></pre>
 </details>
 </dd>
 </dl>
@@ -223,10 +173,8 @@ default is 1024 for optimal run time.</p></div>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="rsa_python.common.largeprimes.big_prime" href="#rsa_python.common.largeprimes.big_prime">big_prime</a></code></li>
 <li><code><a title="rsa_python.common.largeprimes.miller_rabin" href="#rsa_python.common.largeprimes.miller_rabin">miller_rabin</a></code></li>
 <li><code><a title="rsa_python.common.largeprimes.prime_pair" href="#rsa_python.common.largeprimes.prime_pair">prime_pair</a></code></li>
-<li><code><a title="rsa_python.common.largeprimes.random_int" href="#rsa_python.common.largeprimes.random_int">random_int</a></code></li>
 </ul>
 </li>
 </ul>

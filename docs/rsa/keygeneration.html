@@ -36,9 +36,11 @@ class generateKeys:
         encryption exponent is 65537.
         &#34;&#34;&#34;
 
-    def __init__(self, bit_length = 1024):
-        p, q = prime_pair(bit_length)    # Private primes
-        self._p, self._q = p, q
+    def __init__(self, p = None, q = None, bit_length = 1024):
+        if p is None or q is None:
+            self._p, self._q = prime_pair(bit_length)    # Private primes
+        else:
+            self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
         self._e = 65537
@@ -63,7 +65,7 @@ class generateKeys:
             &#34;&#34;&#34;
         key_n = self._make_base64()[0]
         return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
-        &#34;\n&#34; + &#34;e = &#34; + str(self._e)
+        &#34;\n\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
         &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
@@ -72,14 +74,14 @@ class generateKeys:
         key_n = self._make_base64()[0]
         key_d = self._make_base64()[1]
         return &#34;Private Key in base64: n = &#34; + str(key_n) + \
-        &#34;\n&#34; + &#34;d = &#34; + str(key_d)
+        &#34;\n\n&#34; + &#34;d = &#34; + str(key_d)
 
     def get_security(self):
         &#34;&#34;&#34; Prints the bit-length of the semi prime n as a measure of security,
             recommended length is at least 2048.
             &#34;&#34;&#34;
         bit_strength = len(bin(self._n))-2
-        return &#34;Bit Length Security: &#34; + str(bit_strength)
+        return &#34;Calculated bit length: &#34; + str(bit_strength)
 
 
 if __name__ == &#34;__main__&#34;:
@@ -100,7 +102,7 @@ if __name__ == &#34;__main__&#34;:
 <dl>
 <dt id="rsa_python.rsa.keygeneration.generateKeys"><code class="flex name class">
 <span>class <span class="ident">generateKeys</span></span>
-<span>(</span><span>bit_length=1024)</span>
+<span>(</span><span>p=None, q=None, bit_length=1024)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate a public and a private key for RSA encryption. Default bit
@@ -116,9 +118,11 @@ encryption exponent is 65537.</p></div>
         encryption exponent is 65537.
         &#34;&#34;&#34;
 
-    def __init__(self, bit_length = 1024):
-        p, q = prime_pair(bit_length)    # Private primes
-        self._p, self._q = p, q
+    def __init__(self, p = None, q = None, bit_length = 1024):
+        if p is None or q is None:
+            self._p, self._q = prime_pair(bit_length)    # Private primes
+        else:
+            self._p, self._q = p, q
         self._n = self._p*self._q
         self._phi = (self._p-1)*(self._q-1)
         self._e = 65537
@@ -143,7 +147,7 @@ encryption exponent is 65537.</p></div>
             &#34;&#34;&#34;
         key_n = self._make_base64()[0]
         return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
-        &#34;\n&#34; + &#34;e = &#34; + str(self._e)
+        &#34;\n\n&#34; + &#34;e = &#34; + str(self._e)
 
     def get_private(self):
         &#34;&#34;&#34; Returns the private key consisting of the semi prime n and private
@@ -152,14 +156,14 @@ encryption exponent is 65537.</p></div>
         key_n = self._make_base64()[0]
         key_d = self._make_base64()[1]
         return &#34;Private Key in base64: n = &#34; + str(key_n) + \
-        &#34;\n&#34; + &#34;d = &#34; + str(key_d)
+        &#34;\n\n&#34; + &#34;d = &#34; + str(key_d)
 
     def get_security(self):
         &#34;&#34;&#34; Prints the bit-length of the semi prime n as a measure of security,
             recommended length is at least 2048.
             &#34;&#34;&#34;
         bit_strength = len(bin(self._n))-2
-        return &#34;Bit Length Security: &#34; + str(bit_strength)</code></pre>
+        return &#34;Calculated bit length: &#34; + str(bit_strength)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -180,7 +184,7 @@ encryption exponent d.</p></div>
     key_n = self._make_base64()[0]
     key_d = self._make_base64()[1]
     return &#34;Private Key in base64: n = &#34; + str(key_n) + \
-    &#34;\n&#34; + &#34;d = &#34; + str(key_d)</code></pre>
+    &#34;\n\n&#34; + &#34;d = &#34; + str(key_d)</code></pre>
 </details>
 </dd>
 <dt id="rsa_python.rsa.keygeneration.generateKeys.get_public"><code class="name flex">
@@ -199,7 +203,7 @@ exponent e.</p></div>
         &#34;&#34;&#34;
     key_n = self._make_base64()[0]
     return &#34;Public Key: n in base64 = &#34; + str(key_n) + \
-    &#34;\n&#34; + &#34;e = &#34; + str(self._e)</code></pre>
+    &#34;\n\n&#34; + &#34;e = &#34; + str(self._e)</code></pre>
 </details>
 </dd>
 <dt id="rsa_python.rsa.keygeneration.generateKeys.get_security"><code class="name flex">
@@ -217,7 +221,7 @@ recommended length is at least 2048.</p></div>
         recommended length is at least 2048.
         &#34;&#34;&#34;
     bit_strength = len(bin(self._n))-2
-    return &#34;Bit Length Security: &#34; + str(bit_strength)</code></pre>
+    return &#34;Calculated bit length: &#34; + str(bit_strength)</code></pre>
 </details>
 </dd>
 </dl>
